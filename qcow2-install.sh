@@ -31,6 +31,7 @@ IPADDRESS=192.168.0.6
 ## 0. format and install
 
 modprobe nbd max_part=16
+qemu-nbd -v --disconnect $IMG_TGT 2>/dev/null
 
 #qemu-img create -f qcow2 example.img 50G
 #qemu-nbd --connect=$IMG_TGT `pwd`/example.img
@@ -38,21 +39,22 @@ modprobe nbd max_part=16
 ##     Device Boot      Start         End      Blocks   Id  System
 ##/dev/nbd0p1            2048     8390655     4194304   82  Linux swap / Solaris
 ##/dev/nbd0p2         8390656   104857599    48233472   83  Linux
-#qemu-nbd --disconnect $IMG_TGT
+#qemu-nbd -v --disconnect $IMG_TGT
 
-cp -a example.img $HOSTNAME-$TIMESTAMP.img
+cp -av example.img $HOSTNAME-$TIMESTAMP.img
 qemu-nbd --connect=$IMG_TGT `pwd`/$HOSTNAME-$TIMESTAMP.img
 
 $MKFS $IMG_ROOT
 $MKSWAP $IMG_SWAP
 
 MNT=`mktemp -d /tmp/musl.XXXXXXXXXX`
-mount $IMG_TGT $MNT
+mount $IMG_ROOT $MNT && \
 (
 cd $BUILDER_ROOT/target-tree
 tar cf - . | ( cd $MNT; tar xvf -)
 )
 
+(
 cd $MNT
 chmod -v 664 var/run/utmp
 chown -R root:root *
@@ -164,7 +166,9 @@ tar cf - . | ( cd $MNT/root/nnl-builder; tar xvf -)
 rm -rf $MNT/root/nnl-builder/cross-tools
 rm -rf $MNT/root/nnl-builder/target-tree
 rm -rf $MNT/root/nnl-builder/build/*
-umount $MNT
-qemu-nbd --disconnect $IMG_TGT
+)
+umount $MNT && qemu-nbd --disconnect $IMG_TGT
 #mv nonoame-$TIMESTAMP.img /var/lib/libvirt/images/
 echo "DONE"
+
+rmdir -v $MNT
