@@ -144,6 +144,7 @@ mknod dev/fb0 c 29 0
 mknod dev/loop0 b 7 0
 mknod dev/null c 1 3
 mkdir dev/pts
+mkdir dev/ptmx c 5 2
 mknod dev/ram0 b 1 0
 mknod dev/random c 1 8
 mknod dev/sdb1 b 8 17
@@ -154,6 +155,16 @@ mknod dev/tty1 c 4 1
 mknod dev/tty2 c 4 2
 mknod dev/tty3 c 4 3
 mknod dev/urandom c 1 9
+mknod dev/vda b 253 0
+mknod dev/vda1 b 253 1
+mknod dev/vda2 b 253 2
+mknod dev/vda5 b 253 5
+mknod dev/vdb b 253 16
+mknod dev/vdb1 b 253 17
+mknod dev/vdb2 b 253 18
+mknod dev/vdc b 253 32
+mknod dev/vdc1 b 253 33
+mknod dev/vdc2 b 253 34
 mknod dev/zero c 1 5
 ls -l dev
 cat etc/inittab
@@ -163,10 +174,12 @@ mkdir -p root/nnl-builder
 cd $BUILDER_ROOT
 tar cf - . | ( cd $MNT/root/nnl-builder; tar xvf -)
 )
+echo "Removing useless files..."
 rm -rf $MNT/root/nnl-builder/cross-tools
 rm -rf $MNT/root/nnl-builder/target-tree
 rm -rf $MNT/root/nnl-builder/build/*
 )
+echo "Unmounting..."
 umount $MNT && qemu-nbd --disconnect $IMG_TGT
 #mv nonoame-$TIMESTAMP.img /var/lib/libvirt/images/
 echo "DONE"
