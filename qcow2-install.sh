@@ -144,7 +144,7 @@ mknod dev/fb0 c 29 0
 mknod dev/loop0 b 7 0
 mknod dev/null c 1 3
 mkdir dev/pts
-mkdir dev/ptmx c 5 2
+mknod dev/ptmx c 5 2
 mknod dev/ram0 b 1 0
 mknod dev/random c 1 8
 mknod dev/sdb1 b 8 17
