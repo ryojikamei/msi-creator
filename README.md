@@ -9,7 +9,7 @@ msi-creator
 
 ### Process Overview
 
-**(nnl-builder/host)** run *cross* scripts on *host* 
+**(nnl-builder/host)** run *cross* scripts on *host*  
 		V  
 **(nnl-builder/host)** 'cross-tools' is generated  
 		V  
@@ -20,7 +20,7 @@ msi-creator
 **(msi-creator/host)** run build image script on *host*  
 		V  
 **(msi-creator/host)** build image is generated  
-		|  
+		V  
 		V  
 **(nnl-builder/build)** run *native* scripts on *build*  
 		V  
@@ -29,7 +29,7 @@ msi-creator
 **(msi-creator/build)** run install image script on *build*  
 		V  
 **(msi-creator/build)** installation image is generated  
-		|  
+		V  
 		V  
 **(msi,etc./target)** Run installer onto the target machine  
 		V  
