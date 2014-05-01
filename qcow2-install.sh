@@ -143,18 +143,22 @@ ln -s sr0 dev/dvdrw
 mknod dev/fb0 c 29 0
 mknod dev/loop0 b 7 0
 mknod dev/null c 1 3
-mkdir dev/pts
 mknod dev/ptmx c 5 2
+mkdir dev/pts
 mknod dev/ram0 b 1 0
 mknod dev/random c 1 8
 mknod dev/sdb1 b 8 17
 mknod dev/sdb2 b 8 18
 mknod dev/sdc1 b 8 33
+mkdir dev/shm
+chmod 1777 dev/shm
 mknod dev/sr0 b 11 0
 mknod dev/tty1 c 4 1
 mknod dev/tty2 c 4 2
 mknod dev/tty3 c 4 3
 mknod dev/urandom c 1 9
+mknod dev/zero c 1 5
+
 mknod dev/vda b 253 0
 mknod dev/vda1 b 253 1
 mknod dev/vda2 b 253 2
@@ -165,7 +169,7 @@ mknod dev/vdb2 b 253 18
 mknod dev/vdc b 253 32
 mknod dev/vdc1 b 253 33
 mknod dev/vdc2 b 253 34
-mknod dev/zero c 1 5
+
 ls -l dev
 cat etc/inittab
 
