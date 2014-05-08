@@ -1,5 +1,5 @@
 #!/bin/ash
-RD=`pwd`
+PROG_DIR=$PWD/`dirname $0`
 
 if [ "x`gcc -dumpmachine | grep musl`" == "x" ]; then
 	echo "It must be run on native musl system."
@@ -42,7 +42,7 @@ cd iso
 cp -a ../ext/* .
 
 #CONFIGURE
-$RD/utils/config-tree.sh .
+$PROG_DIR/utils/config-tree.sh .
 
 # MKISO
 #mkisofs -R -J -quiet -o ../image.iso -b isolinux/isolinux.bin -c isolinux/boot.cat \
