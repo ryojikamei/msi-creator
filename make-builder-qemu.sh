@@ -47,9 +47,10 @@ cd $OPKG_WORK_ROOT
 tar cf - . | ( cd $MNT/root/nnl-builder; tar xvf -)
 )
 echo "Removing useless files..."
+rm -rf $MNT/root/nnl-builder/build/*
+rm -rf $MNT/root/nnl-builder/cross-scripts
 rm -rf $MNT/root/nnl-builder/cross-tools
 rm -rf $MNT/root/nnl-builder/target-tree
-rm -rf $MNT/root/nnl-builder/build/*
 )
 
 #FINALIZE

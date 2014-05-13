@@ -72,7 +72,7 @@ if [ -f /boot/grub/grub.conf ]; then
 	cat >> /boot/grub/grub.conf <<EOF
 title NoName Linux $TIMESTAMP
 	root (hd1,0)
-	kernel /boot/$KERNEL root=$DEV_ROOT raid=noautodetect
+	kernel /boot/$KERNEL rw root=$DEV_ROOT raid=noautodetect
 EOF
 	tail -n 3 /boot/grub/grub.conf
 fi
@@ -90,7 +90,7 @@ menuentry 'NoName Linux $TIMESTAMP' --class gnu-linux --class gnu --class os {
 	insmod part_msdos
 	insmod ext2
 	set root=$GRUB2_ROOT
-	linux /boot/$KERNEL root=$DEV_ROOT raid=noautodetect vconsole.keymap=jp106
+	linux /boot/$KERNEL rw root=$DEV_ROOT raid=noautodetect vconsole.keymap=jp106
 	}
 EOF
 fi
