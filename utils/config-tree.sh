@@ -1,28 +1,21 @@
 #!/bin/ash
 
+if [ "x$TREE_TGT" == "x" ]; then
+	echo "It cannot be run individually!"
+	exit 1
+fi
 if [ `whoami` != "root" ]; then
 	echo "root privilege is required."
 	exit 1
 fi
 if [ "x$1" == "x" ]; then
-	echo "usage: config-tree.sh <target-root> <config>"
+	echo "usage: config-tree.sh <target-root>"
 	exit 1
 fi
 if [ ! -f $1/boot/vmlinuz ]; then
 	echo "$1/boot/vmlinuz is not found!"
 	exit 1
 fi
-if [ "x$2" == "x" ]; then
-	echo "Configure $1 for bootable cd-rom"
-
-	export TREE_TGT=cdrom
-	export FS_TYPE=iso9660
-	export DEV_ROOT=/dev/sr0
-	export DEV_SWAP=""
-else
-	source $2
-fi
-
 
 cd $1 && pwd
 
@@ -115,7 +108,7 @@ kernel vmlinuz
 append ro root=$DEV_ROOT vga=ask
 EOF
 mv usr/share/syslinux/isolinux.bin isolinux/isolinux.bin && \
-ln -s isolinux/isolinux.bin /usr/share/syslinux/isolinux.bin
+ln -s /isolinux/isolinux.bin usr/share/syslinux/isolinux.bin
 #### End of bootable CD-ROM ####
 ;;
 *)
@@ -198,4 +191,3 @@ echo "#### ETC/INITTAB ####"
 cat etc/inittab
 
 echo ""
-echo "DONE"

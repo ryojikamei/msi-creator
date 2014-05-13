@@ -1,0 +1,7 @@
+# partition table of /dev/nbd0
+unit: sectors
+
+/dev/nbd0p1 : start=     2048, size=  8388608, Id=82
+/dev/nbd0p2 : start=  8390656, size= 96466944, Id=83
+/dev/nbd0p3 : start=        0, size=        0, Id= 0
+/dev/nbd0p4 : start=        0, size=        0, Id= 0

@@ -1,0 +1,21 @@
+echo "Making bootable qemu image"           
+
+export TREE_TGT=qemu
+export FS_TYPE=ext4
+export DEV_ROOT=/dev/vda2
+export DEV_SWAP=/dev/vda1
+#export DEV_ROOT=/dev/vdc2
+#export DEV_SWAP=/dev/vdc1
+##export GRUB2_ROOT='(hd2,msdos2)'
+
+export IMG_TGT=/dev/nbd0
+export IMG_ROOT=/dev/nbd0p2
+export IMG_SWAP=/dev/nbd0p1
+export IMG_TYPE=qcow2
+#export IMG_TYPE=raw
+export IMG_SIZE=50G
+export IMG_DIR=/var/lib/libvirt/images
+
+export HOSTNAME=noname
+export DOMAINNAME=linux.name
+export IPADDRESS=192.168.0.6

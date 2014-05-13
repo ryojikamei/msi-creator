@@ -1,0 +1,5 @@
+echo "Making bootable iso image"
+export TREE_TGT=cdrom
+export FS_TYPE=iso9660
+export DEV_ROOT=/dev/sr0
+export DEV_SWAP=""
