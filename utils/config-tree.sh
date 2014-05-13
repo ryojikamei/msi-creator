@@ -96,6 +96,19 @@ EOF
 fi
 #### End of neighborhood ####
 ;;
+qemu)
+echo "#### For a bootable qemu image ####"
+# EXTLINUX.CFG
+cat > boot/extlinux.cfg <<EOF
+timeout 5
+default linux
+label linux
+kernel vmlinuz
+append rw root=$DEV_ROOT vga=ask
+EOF
+extlinux --install boot
+#### End of qemu image ####
+;;
 cdrom)
 echo "#### For a bootable CD-ROM image in the same machine ####"
 mv boot isolinux && ln -s isolinux boot

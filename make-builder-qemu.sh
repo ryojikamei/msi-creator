@@ -55,7 +55,7 @@ rm -rf $MNT/root/nnl-builder/target-tree
 
 #FINALIZE
 echo "Unmounting..."
-umount $MNT && qemu-nbd --disconnect $IMG_TGT
+umount $MNT && cat $IMG_MBR > $IMG_TGT && qemu-nbd --disconnect $IMG_TGT
 echo "$IMG_DIR/$HOSTNAME-$TIMESTAMP.img is out."
 
 rmdir -v $MNT
