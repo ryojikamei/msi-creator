@@ -48,7 +48,7 @@ cp -a ../ext/* .
 
 #CONFIGURE
 echo "Configure $WORK_DIR/iso for bootable iso image"
-$PROG_DIR/utils/config-tree.sh $WORK_DIR/iso
+$PROG_DIR/helper/config-tree.sh $WORK_DIR/iso
 
 #MKISO
 echo "Making nnl-$TIMESTAMP.iso..."

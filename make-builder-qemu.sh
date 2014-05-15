@@ -36,7 +36,7 @@ tar cf - . | ( cd $MNT; tar xvf -)
 
 #CONFIGURE
 echo "Configure $MNT for single qemu image"
-$PROG_DIR/utils/config-tree.sh $MNT
+$PROG_DIR/helper/config-tree.sh $MNT
 
 #BUILDER
 (
