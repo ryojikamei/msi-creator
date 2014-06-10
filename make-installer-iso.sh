@@ -45,6 +45,8 @@ cd iso
 ## BIN
 #cp -a ../ext/bin/* bin/
 cp -a ../ext/* .
+mkdir -p $WORK_DIR/mnt
+$PROG_DIR/helper/mkloader.sh $WORK_DIR/iso/boot/initrd.img $WORK_DIR/mnt
 
 #CONFIGURE
 echo "Configure $WORK_DIR/iso for bootable iso image"
