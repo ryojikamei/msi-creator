@@ -41,6 +41,10 @@ mknod dev/tty3 c 4 3
 mknod dev/urandom c 1 9
 mknod dev/zero c 1 5
 
+# virtual fs
+mkdir proc
+mkdir sys
+
 # /root
 mkdir root
 
@@ -78,9 +82,10 @@ tty1::respawn:/bin/sh
 ::ctrlaltdel:/sbin/reboot
 EOF
 
-
+cp -a /etc/mdev.conf etc/
 
 )
 umount $2
 
 gzip -9f $1
+mv $1.gz $1

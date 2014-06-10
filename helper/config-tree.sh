@@ -118,8 +118,8 @@ timeout 5
 default linux
 label linux
 kernel vmlinuz
-initrd initrd.img.gz
-append ro root=$DEV_ROOT vga=ask
+initrd initrd.img
+append rw root=/dev/ram0 vga=ask
 EOF
 mv usr/share/syslinux/isolinux.bin isolinux/isolinux.bin && \
 ln -s /isolinux/isolinux.bin usr/share/syslinux/isolinux.bin
