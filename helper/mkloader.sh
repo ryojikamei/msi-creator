@@ -50,15 +50,22 @@ mkdir root
 
 # /bin & /sbin
 mkdir bin && ln -s bin sbin
+
 LIST=`opkg-cl files busybox | grep ^/`
 for b in $LIST; do
 	cp -av $b bin/
 done
 
+cp -v /usr/sbin/mkfs.ext4 bin/
+ln -s mkfs.ext4 bin/mkfs.ext3
+cp -v /usr/bin/dialog bin/
+
 # /lib
 mkdir lib
 cp -v /lib/libc.so lib/
 cp -av /lib/ld-musl-i386.so.1 lib/
+cp -v /usr/lib/libgcc_s.so.1 lib/
+cp -v /lib/libncursesw.so.5 lib/
 
 # /var
 mkdir var
@@ -83,6 +90,16 @@ tty1::respawn:/bin/sh
 EOF
 
 cp -a /etc/mdev.conf etc/
+
+# /usr
+mkdir -p usr/share/terminfo/l
+cp -a /usr/share/terminfo/l/linux usr/share/terminfo/l
+
+# /tmp
+mkdir tmp
+
+# installer
+git clone https://github.com/ryojikamei/msi
 
 )
 umount $2
