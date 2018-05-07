@@ -1,6 +1,6 @@
 #!/bin/ash
 
-if [ "x$TREE_TGT" == "x" ]; then
+if [ "x$TREE_TGT" = "x" ]; then
 	echo "It cannot be run individually!"
 	exit 1
 fi
@@ -8,7 +8,7 @@ if [ `whoami` != "root" ]; then
 	echo "root privilege is required."
 	exit 1
 fi
-if [ "x$1" == "x" ]; then
+if [ "x$1" = "x" ]; then
 	echo "usage: config-tree.sh <target-root>"
 	exit 1
 fi

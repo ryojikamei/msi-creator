@@ -5,8 +5,15 @@ if [ `whoami` != "root" ]; then
 	exit 1
 fi
 
-source ~/.nnl-builder/settings
-source ~/.msi-creator/conf.qemu
+. ~/.nnl-builder/settings
+. ~/.msi-creator/conf.qemu
+
+if [ -d $OPKG_WORK_TARGET ]; then
+	continue
+else
+	echo "target tree is required."
+	exit 1
+fi
 
 PROG_DIR=$PWD/`dirname $0`
 TIMESTAMP=`date +"%Y%m%d%H%M%S"`
@@ -37,6 +44,9 @@ tar cf - . | ( cd $MNT; tar xvf -)
 #CONFIGURE
 echo "Configure $MNT for single qemu image"
 $PROG_DIR/helper/config-tree.sh $MNT
+if [ $? -ne 0 ]; then
+    exit $?
+fi
 
 #BUILDER
 (
@@ -55,7 +65,8 @@ rm -rf $MNT/root/nnl-builder/target-tree
 
 #FINALIZE
 echo "Unmounting..."
-umount $MNT && cat $IMG_MBR > $IMG_TGT && qemu-nbd --disconnect $IMG_TGT
+umount $MNT && dd if=$IMG_MBR of=$IMG_TGT bs=446 count=1 && qemu-nbd --disconnect $IMG_TGT
+#umount $MNT && qemu-nbd --disconnect $IMG_TGT
 echo "$IMG_DIR/$HOSTNAME-$TIMESTAMP.img is out."
 
 rmdir -v $MNT
